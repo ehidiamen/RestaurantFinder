@@ -12,15 +12,9 @@ import java.util.List;
 public interface PrayerRoomRepository extends JpaRepository<PrayerRoom, Long> {
     List<PrayerRoom> findByAddress(String address);
     
-    @Query(value = "SELECT *, (6371 * acos(cos(radians(:lat)) * cos(radians(latitude)) * " +
-            "cos(radians(longitude) - radians(:lon)) + sin(radians(:lat)) * " +
-            "sin(radians(latitude)))) AS distance " +
-            "FROM prayer_rooms " +
-            "WHERE (6371 * acos(cos(radians(:lat)) * cos(radians(latitude)) * " +
-            "cos(radians(longitude) - radians(:lon)) + sin(radians(:lat)) * " +
-            "sin(radians(latitude)))) <= :radius " +
-            "ORDER BY cleanliness_rating DESC", 
-            nativeQuery = true)
+    @Query(value = "SELECT * FROM prayer_rooms " +
+ 	       "WHERE ((ABS(latitude - :lat) + ABS(longitude - :lon)) * 111.12 <= :radius )",
+ 	       nativeQuery = true)
     List<PrayerRoom> findNearbyPrayerRooms(@Param("lat") Double latitude,
                                          @Param("lon") Double longitude,
                                          @Param("radius") Double radiusInKm);

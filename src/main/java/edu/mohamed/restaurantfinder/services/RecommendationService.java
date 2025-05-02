@@ -30,6 +30,7 @@ public class RecommendationService {
      
      List<PrayerRoom> prayerRooms = prayerRoomRepository.findNearbyPrayerRooms(
          latitude, longitude, radius);
+     System.out.println("Hit count: " + prayerRooms.size());
      
      recommendations.put("restaurants", restaurants);
      recommendations.put("prayerRooms", prayerRooms);

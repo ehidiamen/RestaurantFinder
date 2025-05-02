@@ -55,6 +55,7 @@ public class PrayerRoomController {
     @ApiResponse(responseCode = "201", description = "Successfully created prayer room")
     @PostMapping
     public ResponseEntity<PrayerRoom> createPrayerRoom(@RequestBody PrayerRoom prayerRoom) {
+    	System.out.println(prayerRoom.getLatitude());
         return ResponseEntity.status(201).body(prayerRoomService.createPrayerRoom(prayerRoom));
     }
 

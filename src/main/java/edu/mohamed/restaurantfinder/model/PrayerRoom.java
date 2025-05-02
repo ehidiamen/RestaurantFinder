@@ -86,8 +86,44 @@ public class PrayerRoom {
 	public void setFacilities(String facilities) {
         this.facilities = facilities;
     }
+	
+	
 
-    @Override
+    public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+
+	public void setCleanlinessRating(int cleanlinessRating) {
+		this.cleanlinessRating = cleanlinessRating;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+	
+	
+
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public int getCleanlinessRating() {
+		return cleanlinessRating;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	@Override
     public String toString() {
         return "PrayerRoom{" +
                 "id=" + id +
