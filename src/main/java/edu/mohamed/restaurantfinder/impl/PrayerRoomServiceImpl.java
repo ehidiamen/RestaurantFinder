@@ -45,7 +45,7 @@ public class PrayerRoomServiceImpl implements PrayerRoomService {
                 .orElseThrow(() -> new ResourceNotFoundException("Prayer room not found with id: " + id));
 
         prayerRoom.setName(prayerRoomDetails.getName());
-        prayerRoom.setLocation(prayerRoomDetails.getLocation());
+        prayerRoom.setAddress(prayerRoomDetails.getAddress());
         prayerRoom.setFacilities(prayerRoomDetails.getFacilities());
 
         return prayerRoomRepository.save(prayerRoom);

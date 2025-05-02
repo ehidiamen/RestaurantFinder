@@ -1,6 +1,9 @@
 package edu.mohamed.restaurantfinder.model;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "prayer_rooms")
@@ -10,19 +13,40 @@ public class PrayerRoom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Name is required")
+    @Size(max = 100)
     private String name;
-    private String location;
+    
+    @NotBlank(message = "Address is required")
+    @Size(max = 200)
+    private String address;
+    
     private String facilities;
+    
+    @DecimalMin("-90.0") @DecimalMax("90.0")
+    private Double latitude;
+
+    @DecimalMin("-180.0") @DecimalMax("180.0")
+    private Double longitude;
+    
+    @Min(0) @Max(5)
+    private int cleanlinessRating = 0;
+
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     // Default constructor
     public PrayerRoom() {
     }
 
     // Parameterized constructor
-    public PrayerRoom(String name, String location, String facilities) {
+    public PrayerRoom(String name, String address, String facilities,
+    		Double latitude, Double longitude) {
         this.name = name;
-        this.location = location;
+        this.address = address;
         this.facilities = facilities;
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
     public Long getId() {
@@ -46,19 +70,20 @@ public class PrayerRoom {
      * 
      * @return the location as a String.
      */
-    public String getLocation() {
-        return location;
-    }
+    public String getAddress() {
+		return address;
+	}
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
     public String getFacilities() {
         return facilities;
     }
 
-    public void setFacilities(String facilities) {
+   
+	public void setFacilities(String facilities) {
         this.facilities = facilities;
     }
 
@@ -67,7 +92,7 @@ public class PrayerRoom {
         return "PrayerRoom{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", location='" + location + '\'' +
+                ", location='" + address + '\'' +
                 ", facilities='" + facilities + '\'' +
                 '}';
     }
